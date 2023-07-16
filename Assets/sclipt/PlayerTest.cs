@@ -7,6 +7,12 @@ public class PlayerTest : MonoBehaviour
 {
     // Start is called before the first frame update
     Rigidbody _rb;
+    float r = 0;
+    /// <summary>
+    /// ÉvÉåÉCÉÑÅ[Ç™å¸Ç´ÇïœÇ¶ÇÈ
+    /// </summary>
+    bool _rotMode = false;
+    public float _rotLimit = 1;
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -36,5 +42,29 @@ public class PlayerTest : MonoBehaviour
             //velocity.x += 0;
         }
         //this.transform.localPosition = velocity;
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            _rotMode = true;
+            r -= 3;
+        }
+
+
+
+    }
+    void FixedUpdate()
+    {
+        if (_rotMode)
+        {
+            
+            if(r % 90 != 0)
+            {
+                r -= 3;
+            }
+            else
+            {
+                _rotMode = false;
+            }
+            transform.rotation = Quaternion.Euler(0, r, 0);
+        }
     }
 }
