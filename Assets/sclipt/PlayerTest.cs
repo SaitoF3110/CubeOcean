@@ -10,6 +10,8 @@ public class PlayerTest : MonoBehaviour
     [SerializeField] float _moveSpeed = 1;
     AudioSource _audioRot;
     Rigidbody _rb;
+    Vector3 _grav = new Vector3(0,-9.8f,0);
+    bool _water = false;
     int turn = 3;
     float _run = 1;
     float r = 0;
@@ -57,11 +59,20 @@ public class PlayerTest : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             _rb.velocity = new Vector3(0, 0, 0);
+            _grav = Physics.gravity;
             Physics.gravity = new Vector3(0, 0, 0);
         }
         else
         {
-            Physics.gravity = new Vector3(0, -9.8f, 0);
+            if (_water)
+            {
+                Physics.gravity = new Vector3(0,-1,0);
+            }
+            else
+            {
+                Physics.gravity = new Vector3(0, -9.8f, 0);
+            }
+            
         }
         if (Input.GetKey(KeyCode.LeftControl))
         {
@@ -107,7 +118,7 @@ public class PlayerTest : MonoBehaviour
     {
         if (other.gameObject.tag == "Water")
         {
-            Physics.gravity = new Vector3(0, -1, 0);
+            _water = true;
         }
             
     }
@@ -115,7 +126,7 @@ public class PlayerTest : MonoBehaviour
     {
         if (other.gameObject.tag == "Water")
         {
-            Physics.gravity = new Vector3(0, -1, 0);
+            _water = true;
         }
 
 
@@ -124,7 +135,7 @@ public class PlayerTest : MonoBehaviour
     {
         if (other.gameObject.tag == "Water")
         {
-            Physics.gravity = new Vector3(0, -9.8f, 0);
+            _water = false;
         }
     }
 }
