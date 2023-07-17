@@ -6,9 +6,12 @@ using UnityEngine.UIElements;
 public class PlayerTest : MonoBehaviour
 {
     // Start is called before the first frame update
+    [SerializeField] float _jumpPawer = 3;
+    [SerializeField] float _moveSpeed = 1;
     AudioSource _audioRot;
     Rigidbody _rb;
     int turn = 3;
+    float _run = 1;
     float r = 0;
     /// <summary>
     /// ÉvÉåÉCÉÑÅ[Ç™å¸Ç´ÇïœÇ¶ÇÈ
@@ -24,10 +27,15 @@ public class PlayerTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !_rotMode)
+        if (Input.GetKeyDown(KeyCode.W) && !_rotMode)
         {
-            //transform.position += 5 * transform.up * Time.deltaTime;
-            _rb.AddForce(new Vector3(0,300,0));
+            _rb.velocity = new Vector3(_rb.velocity.x,0,_rb.velocity.z);
+            _rb.AddForce(new Vector3(0,_jumpPawer * 100,0));
+        }
+        if (Input.GetKeyDown(KeyCode.S) && !_rotMode)
+        {
+            _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+            _rb.AddForce(new Vector3(0, -_jumpPawer * 50, 0));
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -46,8 +54,23 @@ public class PlayerTest : MonoBehaviour
             _rotMode = true;
             r += turn;
         }
-
-
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            _rb.velocity = new Vector3(0, 0, 0);
+            Physics.gravity = new Vector3(0, 0, 0);
+        }
+        else
+        {
+            Physics.gravity = new Vector3(0, -9.8f, 0);
+        }
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            _run = 2;
+        }
+        else
+        {
+            _run = 1;
+        }
 
     }
     void FixedUpdate()
@@ -55,13 +78,13 @@ public class PlayerTest : MonoBehaviour
         Vector3 velocity = transform.localPosition;
         if (Input.GetKey(KeyCode.D) && !_rotMode)
         {
-            //velocity.x += 0.1f;
-            this.transform.Translate(0.1f, 0, 0, Space.Self);
+            _rb.velocity = new Vector3(0, _rb.velocity.y,0);
+            _rb.AddForce(transform.right * _moveSpeed * _run);
         }
         else if (Input.GetKey(KeyCode.A) && !_rotMode)
         {
-            //velocity.x += -0.1f;
-            this.transform.Translate(-0.1f, 0, 0, Space.Self);
+            _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
+            _rb.AddForce(transform.right * -_moveSpeed * _run);
         }
         else
         {
@@ -78,6 +101,28 @@ public class PlayerTest : MonoBehaviour
                 _rotMode = false;
             }
             transform.rotation = Quaternion.Euler(0, r, 0);
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Water")
+        {
+            Physics.gravity = new Vector3(0, -1, 0);
+        }
+            
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Water")
+        {
+            Physics.gravity = new Vector3(0, -1, 0);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Water")
+        {
+            Physics.gravity = new Vector3(0, -9.8f, 0);
         }
     }
 }
