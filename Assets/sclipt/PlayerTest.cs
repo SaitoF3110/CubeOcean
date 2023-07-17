@@ -117,6 +117,8 @@ public class PlayerTest : MonoBehaviour
         {
             Physics.gravity = new Vector3(0, -1, 0);
         }
+
+
     }
     private void OnTriggerExit(Collider other)
     {
