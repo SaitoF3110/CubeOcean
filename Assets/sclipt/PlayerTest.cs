@@ -29,6 +29,7 @@ public class PlayerTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        GameController._player = this.transform.position;
         if (Input.GetKeyDown(KeyCode.W) && !_rotMode)
         {
             _rb.velocity = new Vector3(_rb.velocity.x,0,_rb.velocity.z);
@@ -86,21 +87,33 @@ public class PlayerTest : MonoBehaviour
     }
     void FixedUpdate()
     {
+        float h = Input.GetAxis("Horizontal");
         Vector3 velocity = transform.localPosition;
-        if (Input.GetKey(KeyCode.D) && !_rotMode)
+        if(h > 0)
         {
-            _rb.velocity = new Vector3(0, _rb.velocity.y,0);
             _rb.AddForce(transform.right * _moveSpeed * _run);
         }
-        else if (Input.GetKey(KeyCode.A) && !_rotMode)
+        else if(h < 0)
         {
-            _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
             _rb.AddForce(transform.right * -_moveSpeed * _run);
         }
-        else
-        {
-            //velocity.x += 0;
-        }
+
+
+        
+        //if (Input.GetKey(KeyCode.D) && !_rotMode)
+        //{
+        //    _rb.velocity = new Vector3(0, _rb.velocity.y,0);
+        //    _rb.AddForce(transform.right * _moveSpeed * _run);
+        //}
+        //else if (Input.GetKey(KeyCode.A) && !_rotMode)
+        //{
+        //    _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
+        //    _rb.AddForce(transform.right * -_moveSpeed * _run);
+        //}
+        //else
+        //{
+        //    //velocity.x += 0;
+        //}
         if (_rotMode)
         {
             if (r % 90 != 0)
