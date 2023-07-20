@@ -98,9 +98,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 0
-  _material:
-  - {fileID: 2100000, guid: e6b432646862f3449889c7face7e153b, type: 2}
-  - {fileID: 2100000, guid: fb3ecc25e4afdc6479b6417a68149ec7, type: 2}
+  _fadeSpeed: 0
+  _defaultAlbedo: {fileID: 2800000, guid: 4832d0489e0bae34b9341ea32364e4d3, type: 3}
 --- !u!65 &4597778154629703100
 BoxCollider:
   m_ObjectHideFlags: 0
