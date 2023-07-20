@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4597778154629703089}
   - component: {fileID: 4597778154629703090}
   - component: {fileID: 4597778154629703091}
+  - component: {fileID: 3669915192748497631}
   - component: {fileID: 4597778154629703100}
   m_Layer: 4
   m_Name: NomalTextureCube
@@ -84,6 +85,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &3669915192748497631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4597778154629703101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e9d2d2855d7f28488a7c8a6525f4453, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 0
+  _material:
+  - {fileID: 2100000, guid: e6b432646862f3449889c7face7e153b, type: 2}
+  - {fileID: 2100000, guid: fb3ecc25e4afdc6479b6417a68149ec7, type: 2}
 --- !u!65 &4597778154629703100
 BoxCollider:
   m_ObjectHideFlags: 0
