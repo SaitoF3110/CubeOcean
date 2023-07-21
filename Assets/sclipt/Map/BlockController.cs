@@ -6,9 +6,9 @@ public abstract class BlockController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] ObjectType _type = ObjectType.Block;
-    Vector3 _position;
-    [SerializeField] float _fadeSpeed = 0;
+    float _fadeSpeed = 0;
     [SerializeField] Texture _defaultAlbedo;
+    float _facting;
     public abstract void WhenRotate();
 
     // Update is called once per frame
@@ -25,7 +25,7 @@ public abstract class BlockController : MonoBehaviour
             
         }
         //this.GetComponent<Renderer>().material.color = new Color(0,0,0, 1);
-        GetComponent<Renderer>().material.mainTexture = _defaultAlbedo;
+        //GetComponent<Renderer>().material.mainTexture = _defaultAlbedo;
     }
     private void FixedUpdate()
     {
@@ -35,28 +35,43 @@ public abstract class BlockController : MonoBehaviour
         }
         else
         {
+            if(_fadeSpeed > 0)
+            {
+                MaterialFix(ChangeType.FadeIn);
+            }
+            else if(_fadeSpeed < 0)
+            {
+                MaterialFix(ChangeType.FadeOut);
+            }
             _fadeSpeed = 0;
+        }
+    }
+    void PlayerFacting()
+    {
+        if(this.transform.rotation.y == 0)
+        {
+
         }
     }
     void BlockMaterialChange(ChangeType _fade)
     {
-        if( _fade == ChangeType.FadeIn )
+        if (_fade == ChangeType.FadeIn)
         {
-            if (this.GetComponent<Renderer>().material.color.a < 1 && this.GetComponent<Renderer>().material.color.a > 0)
+            if (this.GetComponent<Renderer>().material.color.a <= 1 && this.GetComponent<Renderer>().material.color.a >= 0)
             {
                 _fadeSpeed = 0.1f;
                 this.GetComponent<Renderer>().material.color += new Color(0, 0, 0, _fadeSpeed);
             }
         }
-        else if( _fade == ChangeType.FadeOut )
+        else if (_fade == ChangeType.FadeOut)
         {
-            if (this.GetComponent<Renderer>().material.color.a > 0 && this.GetComponent<Renderer>().material.color.a < 1)
+            if (this.GetComponent<Renderer>().material.color.a >= 0 && this.GetComponent<Renderer>().material.color.a <= 1)
             {
                 _fadeSpeed = -0.1f;
                 this.GetComponent<Renderer>().material.color += new Color(0, 0, 0, _fadeSpeed);
             }
         }
-        else if( _fade == ChangeType.NonFadeIn )
+        else if (_fade == ChangeType.NonFadeIn)
         {
             if (this.GetComponent<Renderer>().material.color.a < 1)
             {
@@ -96,6 +111,18 @@ public abstract class BlockController : MonoBehaviour
         else if (_type == ObjectType.Sprite)
         {
 
+        }
+    }
+    void MaterialFix(ChangeType _fade)
+    {
+        if (_fade == ChangeType.FadeIn )
+        {
+            this.GetComponent<Renderer>().material.color -= new Color(0, 0, 0, this.GetComponent<Renderer>().material.color.a);
+            this.GetComponent<Renderer>().material.color += new Color(0, 0, 0, 1);
+        }
+        else if( _fade == ChangeType.FadeOut )
+        {
+            this.GetComponent<Renderer>().material.color -= new Color(0, 0, 0, this.GetComponent<Renderer>().material.color.a);
         }
     }
     enum ObjectType
