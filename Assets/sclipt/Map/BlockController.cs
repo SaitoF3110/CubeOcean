@@ -18,7 +18,7 @@ public abstract class BlockController : MonoBehaviour
     }
     void Update()
     {
-        Debug.Log(this.GetComponent<Renderer>().material.color.a);
+        //Debug.Log(this.GetComponent<Renderer>().material.color.a);
         if (Input.GetKeyDown(KeyCode.R))
         {
             BlockControll();

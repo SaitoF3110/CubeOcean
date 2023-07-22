@@ -20,6 +20,7 @@ public class PlayerTest : MonoBehaviour
     /// </summary>
     bool _rotMode = false;
     public float _rotLimit = 1;
+    public float _speedY;
     void Start()
     {
         _audioRot = GetComponent<AudioSource>();
@@ -29,6 +30,7 @@ public class PlayerTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        _speedY = _rb.velocity.y;
         GameController._player = this.transform.position;
         if (Input.GetKeyDown(KeyCode.W) && !_rotMode)
         {

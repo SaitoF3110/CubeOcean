@@ -7,15 +7,58 @@ public class PlayerAnim : MonoBehaviour
     // Start is called before the first frame update
     Animator anim = null;
     SpriteRenderer m_sprite = default;
+    Rigidbody rb = null;
     void Start()
     {
         anim = GetComponent<Animator>();
         m_sprite = GetComponent<SpriteRenderer>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        anim.SetBool("run", true);
+        float h = Input.GetAxis("Horizontal");
+        if(h != 0f)
+        {
+            m_sprite.flipX = (h < 0);
+            anim.SetBool("run", true);
+        }
+        else
+        {
+            anim.SetBool("run", false);
+        }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            anim.SetBool("jumpKey", true);
+            anim.SetFloat("SpeedY", 0);
+        }
+        //アニメーション
+        GameObject obj = transform.parent.gameObject;
+        PlayerTest player = obj.GetComponent<PlayerTest>();
+        anim.SetFloat("SpeedY", player._speedY);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.tag == "Ground")
+        {
+            anim.SetBool("ground", false);
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            anim.SetBool("ground", true);
+        }
+
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Ground")
+        {
+            anim.SetBool("ground", true);
+            anim.SetBool("jumpKey", false);
+        }
     }
 }
