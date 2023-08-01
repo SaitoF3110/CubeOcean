@@ -9,6 +9,7 @@ public class PlayerTest : MonoBehaviour
     [SerializeField] float _jumpPawer = 3;
     [SerializeField] float _moveSpeed = 1;
     AudioSource _audioRot;
+    [SerializeField] AudioClip _jumpSE;
     Rigidbody _rb;
     Vector3 _grav = new Vector3(0,-9.8f,0);
     bool _water = false;
@@ -38,6 +39,7 @@ public class PlayerTest : MonoBehaviour
         GameController._player = this.transform.position;
         if (Input.GetKeyDown(KeyCode.W) && !_rotMode)
         {
+            _audioRot.PlayOneShot(_jumpSE);
             _rb.velocity = new Vector3(_rb.velocity.x,0,_rb.velocity.z);
             _rb.AddForce(new Vector3(0,_jumpPawer * 100,0));
         }
