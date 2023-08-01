@@ -30,6 +30,7 @@ public class PlayerAnim : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
+            //this.GetComponent<Animator>().enabled = false;  アニメーション停止のメモ
             anim.SetBool("jumpKey", true);
             anim.SetFloat("SpeedY", 0);
         }

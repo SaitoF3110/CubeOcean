@@ -21,6 +21,10 @@ public class PlayerTest : MonoBehaviour
     bool _rotMode = false;
     public float _rotLimit = 1;
     public float _speedY;
+    /// <summary>
+    /// ‰ñ‚Á‚½Œã‚ÌŒü‚« 0:1:2:3 = 0:-90:}180:90
+    /// </summary>
+    public int _afterFacting = 0;
     void Start()
     {
         _audioRot = GetComponent<AudioSource>();

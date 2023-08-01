@@ -8,7 +8,10 @@ public abstract class BlockController : MonoBehaviour
     [SerializeField] ObjectType _type = ObjectType.Block;
     float _fadeSpeed = 0;
     [SerializeField] Texture _defaultAlbedo;
-    float _facting;
+    float _thisFactingL;
+    float _thisFactingR;
+    float _playerFactingL;
+    float _playerFactingR;
     public abstract void WhenRotate();
 
     // Update is called once per frame
@@ -21,8 +24,8 @@ public abstract class BlockController : MonoBehaviour
         //Debug.Log(this.GetComponent<Renderer>().material.color.a);
         if (Input.GetKeyDown(KeyCode.R))
         {
-            BlockControll();
-            
+            PlayerFacting();
+            BlockControll();          
         }
         //this.GetComponent<Renderer>().material.color = new Color(0,0,0, 1);
         //GetComponent<Renderer>().material.mainTexture = _defaultAlbedo;
@@ -48,10 +51,30 @@ public abstract class BlockController : MonoBehaviour
     }
     void PlayerFacting()
     {
-        if(this.transform.rotation.y == 0)
+        GameObject obj = GameObject.FindWithTag("Player");
+        if (obj.transform.rotation.y <= 0 && obj.transform.rotation.y >= -45)
+        {
+            _thisFactingL = this.transform.position.x;
+            _playerFactingL = GameController._intPlayer.x;
+            _thisFactingR = this.transform.rotation.z;
+            _playerFactingR = GameController._intPlayer.z;
+        }
+        else if (obj.transform.rotation.y == -90)
+        {
+            _thisFactingL = this.transform.position.z;
+            _playerFactingL = GameController._intPlayer.z;
+            _thisFactingR = this.transform.rotation.x;
+            _playerFactingR = GameController._intPlayer.x;
+        }
+        else if (obj.transform.rotation.y == 180 || obj.transform.rotation.y == -180)
         {
 
         }
+        else if(obj.transform.rotation.y == 90)
+        {
+
+        }
+
     }
     void BlockMaterialChange(ChangeType _fade)
     {
@@ -90,7 +113,7 @@ public abstract class BlockController : MonoBehaviour
     {
         if (_type == ObjectType.Block)
         {
-            if (this.transform.position.x == GameController._intPlayer.x && this.transform.position.x <= GameController._intPlayer.x || this.transform.position.z == GameController._intPlayer.z && this.transform.position.x <= GameController._intPlayer.x)
+            if (_thisFactingL >= _playerFactingL - 1 && _thisFactingL <= _playerFactingL + 1 || _thisFactingR == _playerFactingR && _thisFactingL <= _playerFactingL)
             {
                 BlockMaterialChange(ChangeType.NonFadeIn);
             }
