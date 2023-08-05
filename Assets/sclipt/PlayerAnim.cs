@@ -10,6 +10,7 @@ public class PlayerAnim : MonoBehaviour
     Rigidbody rb = null;
     AudioSource _audio;
     [SerializeField] AudioClip _landingSE;
+    [SerializeField] AudioClip _AttackSE;
     bool _landing = false;
     void Start()
     {
@@ -23,9 +24,10 @@ public class PlayerAnim : MonoBehaviour
     void Update()
     {
         anim.SetBool("NomalAttack", false);
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             anim.SetBool("NomalAttack", true);
+            _audio.PlayOneShot(_AttackSE);
         }
         float h = Input.GetAxis("Horizontal");
         if(h != 0f)

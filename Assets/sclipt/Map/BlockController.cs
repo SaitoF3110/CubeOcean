@@ -8,6 +8,7 @@ public abstract class BlockController : MonoBehaviour
     [SerializeField] ObjectType _type = ObjectType.Block;
     float _fadeSpeed = 0;
     [SerializeField] Texture _defaultAlbedo;
+    FactingManager _facM;
     float _thisFactingL;
     float _thisFactingR;
     float _playerFactingL;
@@ -17,6 +18,8 @@ public abstract class BlockController : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
+        _facM = GameObject.FindObjectOfType<FactingManager>();
+        _facM.FactingTurn += PlayerFacting;
 
     }
     void Update()
@@ -24,8 +27,8 @@ public abstract class BlockController : MonoBehaviour
         //Debug.Log(this.GetComponent<Renderer>().material.color.a);
         if (Input.GetKeyDown(KeyCode.R))
         {
-            PlayerFacting();
-            BlockControll();          
+            
+                      
         }
         //this.GetComponent<Renderer>().material.color = new Color(0,0,0, 1);
         //GetComponent<Renderer>().material.mainTexture = _defaultAlbedo;
@@ -49,32 +52,17 @@ public abstract class BlockController : MonoBehaviour
             _fadeSpeed = 0;
         }
     }
-    void PlayerFacting()
+    void PlayerFacting(FactingManager.Facting _fact, bool _turn)
     {
-        GameObject obj = GameObject.FindWithTag("Player");
-        if (obj.transform.rotation.y <= 0 && obj.transform.rotation.y >= -45)
+        if (!_turn)
         {
-            _thisFactingL = this.transform.position.x;
-            _playerFactingL = GameController._intPlayer.x;
-            _thisFactingR = this.transform.rotation.z;
-            _playerFactingR = GameController._intPlayer.z;
+            if (_fact == FactingManager.Facting.MinusZ)
+            {
+                //_thisFactingL = transform.position.x; 
+                //_thisFactingR = transform.position.z; 
+            }
+            BlockControll();
         }
-        else if (obj.transform.rotation.y == -90)
-        {
-            _thisFactingL = this.transform.position.z;
-            _playerFactingL = GameController._intPlayer.z;
-            _thisFactingR = this.transform.rotation.x;
-            _playerFactingR = GameController._intPlayer.x;
-        }
-        else if (obj.transform.rotation.y == 180 || obj.transform.rotation.y == -180)
-        {
-
-        }
-        else if(obj.transform.rotation.y == 90)
-        {
-
-        }
-
     }
     void BlockMaterialChange(ChangeType _fade)
     {

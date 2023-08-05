@@ -6,7 +6,9 @@ using UnityEngine;
 public class FactingManager : MonoBehaviour
 {
     event Action<Facting, bool> _onFactingTurn;
-
+    /// <summary>
+    /// Factingは向き　boolはtrue =ShiftTurn(上から見て時計回り)falseはその逆
+    /// </summary>
     public Action<Facting, bool> FactingTurn
     {
         get { return _onFactingTurn; }
@@ -20,7 +22,41 @@ public class FactingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(GetFacting());
+        int _rotY = (int)this.transform.localEulerAngles.y;
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log(GetFacting(_rotY));
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                _onFactingTurn(GetFacting(_rotY), true);
+            }
+            else
+            {
+                _onFactingTurn(GetFacting(_rotY), false);
+             
+            }
+        }
+            
+    }
+    static public Facting GetFacting(int _transRY)
+    {
+        
+        if (_transRY == 0)
+        {
+            return Facting.MinusZ;
+        }
+        else if (_transRY == 270)
+        {
+            return Facting.PlusX;
+        }
+        else if( _transRY == 180)
+        {
+            return Facting.PlusZ;
+        }
+        else
+        {
+            return Facting.MinusX;
+        }
     }
     public enum Facting
     {
@@ -32,16 +68,5 @@ public class FactingManager : MonoBehaviour
         MinusX,
         /// <summary>プレイヤーから見てz軸マイナス方向にカメラ</summary>
         MinusZ,
-    }
-    Facting GetFacting()
-    {
-        if (this.transform.rotation.y == 0)
-        {
-            return Facting.MinusZ;
-        }
-        else
-        {
-            return Facting.PlusZ;
-        }
     }
 }

@@ -10,6 +10,7 @@ public class PlayerTest : MonoBehaviour
     [SerializeField] float _moveSpeed = 1;
     AudioSource _audioRot;
     [SerializeField] AudioClip _jumpSE;
+    FactingManager _facM;
     Rigidbody _rb;
     Vector3 _grav = new Vector3(0,-9.8f,0);
     bool _water = false;
@@ -30,6 +31,9 @@ public class PlayerTest : MonoBehaviour
     {
         _audioRot = GetComponent<AudioSource>();
         _rb = GetComponent<Rigidbody>();
+        _facM = GetComponent<FactingManager>();
+        _facM.FactingTurn += AllowFacting;
+        
     }
 
     // Update is called once per frame
@@ -105,24 +109,6 @@ public class PlayerTest : MonoBehaviour
         {
             _rb.AddForce(transform.right * -_moveSpeed * _run);
         }
-
-
-
-        
-        //if (Input.GetKey(KeyCode.D) && !_rotMode)
-        //{
-        //    _rb.velocity = new Vector3(0, _rb.velocity.y,0);
-        //    _rb.AddForce(transform.right * _moveSpeed * _run);
-        //}
-        //else if (Input.GetKey(KeyCode.A) && !_rotMode)
-        //{
-        //    _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
-        //    _rb.AddForce(transform.right * -_moveSpeed * _run);
-        //}
-        //else
-        //{
-        //    //velocity.x += 0;
-        //}
         if (_rotMode)
         {
             if (r % 90 != 0)
@@ -135,6 +121,20 @@ public class PlayerTest : MonoBehaviour
             }
             transform.rotation = Quaternion.Euler(0, r, 0);
         }
+    }
+    void AllowFacting(FactingManager.Facting _fact,bool _turn)
+    {
+        if(_fact == FactingManager.Facting.PlusZ || _fact == FactingManager.Facting.MinusZ)
+        {
+            _rb.constraints = RigidbodyConstraints.FreezeRotation  //Rotationを全てオン
+            | RigidbodyConstraints.FreezePositionX;
+        }
+        else
+        {
+            _rb.constraints = RigidbodyConstraints.FreezeRotation  //Rotationを全てオン
+           | RigidbodyConstraints.FreezePositionZ;
+        }
+        
     }
     private void OnTriggerEnter(Collider other)
     {

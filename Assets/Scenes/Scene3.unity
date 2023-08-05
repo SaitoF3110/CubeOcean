@@ -1789,6 +1789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _landingSE: {fileID: 8300000, guid: 68e320b940921924fb6f0bb1c1f8ae9a, type: 3}
+  _AttackSE: {fileID: 8300000, guid: 41c20be373b633c4c96aabe536c8fc68, type: 3}
 --- !u!65 &346952420
 BoxCollider:
   m_ObjectHideFlags: 0
