@@ -105,7 +105,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpPawer: 5
   _moveSpeed: 200
+  _jumpSE: {fileID: 0}
   _rotLimit: 1
+  _speedY: 0
+  _afterFacting: 0
 --- !u!54 &4774422720155988196
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -274,7 +277,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0.64705884, g: 0.72246426, b: 0.9607843, a: 1}
+  m_Color: {r: 0.9607843, g: 0.736485, b: 0.64705884, a: 1}
   m_Intensity: 0.5
   m_Range: 5
   m_SpotAngle: 30

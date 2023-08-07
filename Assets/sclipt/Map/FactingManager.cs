@@ -25,7 +25,7 @@ public class FactingManager : MonoBehaviour
         int _rotY = (int)this.transform.localEulerAngles.y;
         if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log(GetFacting(_rotY));
+            //Debug.Log(GetFacting(_rotY));
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 _onFactingTurn(GetFacting(_rotY), true);

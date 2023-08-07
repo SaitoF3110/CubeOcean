@@ -57,6 +57,7 @@ public class PlayerTest : MonoBehaviour
             if(!_rotMode)
             {
                 _audioRot.Play();
+                //this.transform.position = new Vector3((int)this.transform.position.x,this.transform.position.y, (int)this.transform.position.z);
             }
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -126,12 +127,12 @@ public class PlayerTest : MonoBehaviour
     {
         if(_fact == FactingManager.Facting.PlusZ || _fact == FactingManager.Facting.MinusZ)
         {
-            _rb.constraints = RigidbodyConstraints.FreezeRotation  //Rotationを全てオン
+            _rb.constraints = RigidbodyConstraints.FreezeRotation  
             | RigidbodyConstraints.FreezePositionX;
         }
         else
         {
-            _rb.constraints = RigidbodyConstraints.FreezeRotation  //Rotationを全てオン
+            _rb.constraints = RigidbodyConstraints.FreezeRotation  
            | RigidbodyConstraints.FreezePositionZ;
         }
         

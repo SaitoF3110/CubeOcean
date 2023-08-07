@@ -6,6 +6,7 @@ public abstract class BlockController : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] ObjectType _type = ObjectType.Block;
+    
     float _fadeSpeed = 0;
     [SerializeField] Texture _defaultAlbedo;
     FactingManager _facM;
@@ -13,6 +14,7 @@ public abstract class BlockController : MonoBehaviour
     float _thisFactingR;
     float _playerFactingL;
     float _playerFactingR;
+    int _factNumber;
     public abstract void WhenRotate();
 
     // Update is called once per frame
@@ -54,14 +56,63 @@ public abstract class BlockController : MonoBehaviour
     }
     void PlayerFacting(FactingManager.Facting _fact, bool _turn)
     {
-        if (!_turn)
+        GameObject _playerObj = GameObject.FindWithTag("Player");
+        if (_fact == FactingManager.Facting.MinusZ || _fact == FactingManager.Facting.PlusZ)
         {
-            if (_fact == FactingManager.Facting.MinusZ)
-            {
-                //_thisFactingL = transform.position.x; 
-                //_thisFactingR = transform.position.z; 
-            }
+            _thisFactingL = (int)this.transform.position.x; 
+            _playerFactingL = (int)_playerObj.transform.position.x;
+        }
+        else if(_fact == FactingManager.Facting.PlusX || _fact == FactingManager.Facting.MinusX)
+        {
+            _thisFactingL = (int)this.transform.position.z;
+            _playerFactingL = (int)_playerObj.transform.position.z;  
+        }
+        if(!_turn)
+        {
+            if(_fact == FactingManager.Facting.PlusX || _fact == FactingManager.Facting.MinusZ)
+                _factNumber = -1;
+            else if(_fact == FactingManager.Facting.PlusZ || _fact == FactingManager.Facting.MinusX)
+                _factNumber = 1;
+        }
+        else
+        {
+            if (_fact == FactingManager.Facting.PlusX || _fact == FactingManager.Facting.MinusZ)
+                _factNumber = 1;
+            else if (_fact == FactingManager.Facting.PlusZ || _fact == FactingManager.Facting.MinusX)
+                _factNumber = -1;
+        }
             BlockControll();
+    }
+    void BlockControll()
+    {
+        if(this.GetComponent<Renderer>().material.color.a >= 0.7 && this.GetComponent<Renderer>().material.color.a <= 0.9)
+        {
+            MaterialFix(ChangeType.FadeIn);
+        }
+        if (_type == ObjectType.Block)
+        {
+            if (_thisFactingL == _playerFactingL || _thisFactingL == _playerFactingL + _factNumber)
+            {
+                BlockMaterialChange(ChangeType.FadeIn);//回転後に表示するブロックはフェードイン
+            }
+            else if(_thisFactingL == _playerFactingL - _factNumber)//手前のブロックは半透明に
+            {
+                MaterialFix(ChangeType.FadeOut);
+                BlockMaterialChange(ChangeType.TranslucentIn);
+            }
+            else
+            {
+                //this.GetComponent<Renderer>().material = _material[1];
+                //GetComponent<Renderer>().material.color = new Color(0, 0, 0, 0.5f);
+                //this.GetComponent<Renderer>().material.color += new Color(0, 0, 0, 0.5f);
+                BlockMaterialChange(ChangeType.FadeOut);
+
+            }
+
+        }
+        else if (_type == ObjectType.Sprite)
+        {
+
         }
     }
     void BlockMaterialChange(ChangeType _fade)
@@ -89,6 +140,13 @@ public abstract class BlockController : MonoBehaviour
                 this.GetComponent<Renderer>().material.color += new Color(0, 0, 0, 1);
             }
         }
+        else if (_fade == ChangeType.TranslucentIn)
+        {
+            if (this.GetComponent<Renderer>().material.color.a < 0.8)
+            {
+                this.GetComponent<Renderer>().material.color += new Color(0, 0, 0, 0.8f);
+            }
+        }
         else
         {
             if (this.GetComponent<Renderer>().material.color.a > 0)
@@ -97,33 +155,7 @@ public abstract class BlockController : MonoBehaviour
             }
         }
     }
-    void BlockControll()
-    {
-        if (_type == ObjectType.Block)
-        {
-            if (_thisFactingL >= _playerFactingL - 1 && _thisFactingL <= _playerFactingL + 1 || _thisFactingR == _playerFactingR && _thisFactingL <= _playerFactingL)
-            {
-                BlockMaterialChange(ChangeType.NonFadeIn);
-            }
-            else if (this.transform.position.x > GameController._intPlayer.x)
-            {
-                BlockMaterialChange(ChangeType.FadeOut);
-            }
-            else
-            {
-                //this.GetComponent<Renderer>().material = _material[1];
-                //GetComponent<Renderer>().material.color = new Color(0, 0, 0, 0.5f);
-                //this.GetComponent<Renderer>().material.color += new Color(0, 0, 0, 0.5f);
-                BlockMaterialChange(ChangeType.NonFadeOut);
-
-            }
-
-        }
-        else if (_type == ObjectType.Sprite)
-        {
-
-        }
-    }
+    
     void MaterialFix(ChangeType _fade)
     {
         if (_fade == ChangeType.FadeIn )
@@ -153,5 +185,9 @@ public abstract class BlockController : MonoBehaviour
         NonFadeIn,
         /// <summary>切り替えタイプで退場</summary>
         NonFadeOut,
+        /// <summary>半透明ブロックの出現</summary>
+        TranslucentIn,
+        /// <summary>半透明ブロックの退場</summary>
+        TranslucentOut,
     }
 }
