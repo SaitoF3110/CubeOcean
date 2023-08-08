@@ -1,0 +1,10 @@
+diff a/Assets/Scenes/Scene3.unity b/Assets/Scenes/Scene3.unity	(rejected hunks)
+@@ -314,7 +314,7 @@
+   m_CorrespondingSourceObject: {fileID: 4597778154629703089, guid: 3826539f89d986f49a91426ab1867dcb, type: 3}
+   m_PrefabInstance: {fileID: 22835379}
+   m_PrefabAsset: {fileID: 0}
+---- !u!1001 &34628553
++--- !u!1001 &31866143
+ PrefabInstance:
+   m_ObjectHideFlags: 0
+   serializedVersion: 2
