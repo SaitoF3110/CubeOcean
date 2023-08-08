@@ -8,6 +8,7 @@ public class PlayerTest : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] float _jumpPawer = 3;
     [SerializeField] float _moveSpeed = 1;
+    [SerializeField] GameObject _transform;
     AudioSource _audioRot;
     [SerializeField] AudioClip _jumpSE;
     FactingManager _facM;
@@ -39,6 +40,7 @@ public class PlayerTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(this.transform.position);
         _speedY = _rb.velocity.y;
         GameController._player = this.transform.position;
         if (Input.GetKeyDown(KeyCode.W) && !_rotMode)
@@ -125,15 +127,29 @@ public class PlayerTest : MonoBehaviour
     }
     void AllowFacting(FactingManager.Facting _fact,bool _turn)
     {
-        if(_fact == FactingManager.Facting.PlusZ || _fact == FactingManager.Facting.MinusZ)
+        
+        if (_fact == FactingManager.Facting.PlusZ || _fact == FactingManager.Facting.MinusZ)
         {
+            float _fixValue;
+            if(this.transform.position.x >= 0) { _fixValue = 0.45f; } else { _fixValue = -0.45f; }
+            float _fixdTrans = this.transform.position.x + _fixValue;
             _rb.constraints = RigidbodyConstraints.FreezeRotation  
             | RigidbodyConstraints.FreezePositionX;
+            if (Input.GetKeyDown(KeyCode.R))
+                this.transform.position = new Vector3((int)_fixdTrans, this.transform.position.y, this.transform.position.z);
         }
         else
         {
+            float _fixValue;
+            if (this.transform.position.z >= 0) { _fixValue = 0.45f; } else { _fixValue = -0.45f; }
+            float _fixdTrans = this.transform.position.z + _fixValue;
             _rb.constraints = RigidbodyConstraints.FreezeRotation  
            | RigidbodyConstraints.FreezePositionZ;
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                this.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, (int)_fixdTrans);
+            }
+                
         }
         
     }
