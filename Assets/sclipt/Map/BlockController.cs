@@ -10,10 +10,8 @@ public abstract class BlockController : MonoBehaviour
     float _fadeSpeed = 0;
     [SerializeField] Texture _defaultAlbedo;
     FactingManager _facM;
-    float _thisFactingL;
-    float _thisFactingR;
-    float _playerFactingL;
-    float _playerFactingR;
+    float _thisFacting;
+    float _playerFacting;
     int _factNumber;
     public abstract void WhenRotate();
 
@@ -21,7 +19,7 @@ public abstract class BlockController : MonoBehaviour
     private void Start()
     {
         _facM = GameObject.FindObjectOfType<FactingManager>();
-        _facM.FactingTurn += PlayerFacting;
+        _facM.FactingTurn += PlayerFactingBlock;
 
     }
     void Update()
@@ -54,18 +52,33 @@ public abstract class BlockController : MonoBehaviour
             _fadeSpeed = 0;
         }
     }
-    void PlayerFacting(FactingManager.Facting _fact, bool _turn)
+    void PlayerFactingBlock(FactingManager.Facting _fact, bool _turn)
     {
         GameObject _playerObj = GameObject.FindWithTag("Player");
+        float _fixdTrans;
+        //プレイヤーの位置修正
+        if (_fact == FactingManager.Facting.PlusZ || _fact == FactingManager.Facting.MinusZ)
+        {
+            float _fixValue;
+            if (this.transform.position.x >= 0) { _fixValue = 0.45f; } else { _fixValue = -0.45f; }
+            _fixdTrans = _playerObj.transform.position.x + _fixValue;
+        }
+        else
+        {
+            float _fixValue;
+            if (this.transform.position.z >= 0) { _fixValue = 0.45f; } else { _fixValue = -0.45f; }
+            _fixdTrans = _playerObj.transform.position.z + _fixValue;
+        }
+        
         if (_fact == FactingManager.Facting.MinusZ || _fact == FactingManager.Facting.PlusZ)
         {
-            _thisFactingL = (int)this.transform.position.x; 
-            _playerFactingL = (int)_playerObj.transform.position.x;
+            _thisFacting = (int)this.transform.position.x;
+            _playerFacting = (int)_fixdTrans;
         }
         else if(_fact == FactingManager.Facting.PlusX || _fact == FactingManager.Facting.MinusX)
         {
-            _thisFactingL = (int)this.transform.position.z;
-            _playerFactingL = (int)_playerObj.transform.position.z;  
+            _thisFacting = (int)this.transform.position.z;
+            _playerFacting = (int)_fixdTrans;  
         }
         if(!_turn)
         {
@@ -91,11 +104,12 @@ public abstract class BlockController : MonoBehaviour
         }
         if (_type == ObjectType.Block)
         {
-            if (_thisFactingL == _playerFactingL || _thisFactingL == _playerFactingL + _factNumber)
+            if (_thisFacting == _playerFacting || _thisFacting == _playerFacting + _factNumber)
             {
                 BlockMaterialChange(ChangeType.FadeIn);//回転後に表示するブロックはフェードイン
+                Debug.Log(_playerFacting);
             }
-            else if(_thisFactingL == _playerFactingL - _factNumber)//手前のブロックは半透明に
+            else if(_thisFacting == _playerFacting - _factNumber)//手前のブロックは半透明に
             {
                 MaterialFix(ChangeType.FadeOut);
                 BlockMaterialChange(ChangeType.TranslucentIn);
