@@ -56,7 +56,7 @@ public class PlayerAnim : MonoBehaviour
         {
             anim.SetBool("ground", false);
         }
-        _landing = false;
+            _landing = false;
     }
     private void OnTriggerStay(Collider other)
     {
