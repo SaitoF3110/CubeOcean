@@ -12,11 +12,9 @@ public class PanelController : MonoBehaviour
     [SerializeField] GameObject _panelMZ;//プレイヤーから見てマイナスX方向のパネル
     FactingManager _facM;
     GameObject _inObj;
-    GameObject _outObj;
     bool _fadeIn = false;
-    bool _out = false;
-    float _time;
     float _alpha = 0;
+    float _outAlpha;
     void Start()
     {
         _facM = GameObject.FindObjectOfType<FactingManager>();
@@ -27,7 +25,18 @@ public class PanelController : MonoBehaviour
         if (_fadeIn)
         {
             Fix();
-            _inObj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 1);
+            if(_alpha <= 1)
+            {
+                _alpha += 0.05f;
+                _inObj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _alpha);
+            }
+            else
+            {
+                _alpha = 0;
+                _outAlpha = 1;
+                _fadeIn = false;
+            }
+            
         }
         
     }
@@ -48,7 +57,7 @@ public class PanelController : MonoBehaviour
             if (this.transform.position.z >= 0) { _fixValue = 0.45f; } else { _fixValue = -0.45f; }
             _fixdTrans = new Vector3(_playerObj.transform.position.x, _playerObj.transform.position.y, _playerObj.transform.position.z + _fixValue);
         }
-        if(this.transform.position.x == (int)_fixdTrans.x && this.transform.position.z == (int)_fixdTrans.z)
+        if(this.transform.position.x == (int)_fixdTrans.x && _fact == FactingManager.Facting.PlusZ|| this.transform.position.x == (int)_fixdTrans.x && _fact == FactingManager.Facting.MinusZ || this.transform.position.z == (int)_fixdTrans.z && _fact == FactingManager.Facting.MinusX || this.transform.position.z == (int)_fixdTrans.z && _fact == FactingManager.Facting.PlusX)
         {
             _inObj = FactGameObject(_fact, _turn);
             _fadeIn = true;
@@ -73,14 +82,18 @@ public class PanelController : MonoBehaviour
     }
     void Fix()
     {
-        if (_inObj != _panelPZ)
-            _panelPZ.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-        if (_inObj != _panelPX)
-            _panelPX.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-        if (_inObj != _panelMZ)
-            _panelMZ.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-        if (_inObj != _panelMX)
-            _panelMX.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+        if (_outAlpha >= 0)
+        {
+            _outAlpha -= 0.05f;
+            if (_inObj != _panelPZ)
+                _panelPZ.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _outAlpha);
+            if (_inObj != _panelPX)
+                _panelPX.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _outAlpha);
+            if (_inObj != _panelMZ)
+                _panelMZ.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _outAlpha);
+            if (_inObj != _panelMX)
+                _panelMX.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _outAlpha);
+        }
         if(_inObj ==null)
         {
             _panelPZ.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
