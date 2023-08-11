@@ -29,15 +29,16 @@ public class TreasureBoxController : MonoBehaviour
             for (int i = 0; i < _items.Length; i++)
             {
                 int rnd = Random.Range(-100, 100);
+                int rndY = Random.Range(200, 300);
                 _item = Instantiate(_items[i], this.transform.position, this.transform.rotation) as GameObject;
                 Rigidbody rb = _item.GetComponent<Rigidbody>();
                 if(this.transform.rotation .eulerAngles.y == 0 || this.transform.rotation.eulerAngles.y == 180)
                 {
-                    rb.AddForce(new Vector3(rnd, 250, 0));
+                    rb.AddForce(new Vector3(rnd, rndY, 0));
                 }
                 else
                 {
-                    rb.AddForce(new Vector3(0, 250, rnd));
+                    rb.AddForce(new Vector3(0, rndY, rnd));
                 }
                 
             }

@@ -28,6 +28,8 @@ public class PlayerStates : MonoBehaviour
         Paralyzed,
         /// <summary>“İ‰»ó‘Ô</summary>
         Slowed,
+        /// <summary>–hŒä’á‰ºó‘Ô</summary>
+        DefenseDecreased,
     }
     public enum Buff
     {

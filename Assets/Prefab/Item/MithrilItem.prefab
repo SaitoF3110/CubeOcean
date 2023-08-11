@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &8349604577316073767
+--- !u!1 &2106921179069176926
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8349604577316073761}
-  - component: {fileID: 8349604577316073766}
-  - component: {fileID: 8349604577316073760}
+  - component: {fileID: 2106921179069176920}
+  - component: {fileID: 2106921179069176927}
+  - component: {fileID: 2106921179069176921}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -18,28 +18,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8349604577316073761
+--- !u!4 &2106921179069176920
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8349604577316073767}
+  m_GameObject: {fileID: 2106921179069176926}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8349604577350010772}
+  m_Father: {fileID: 2106921179102079725}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &8349604577316073766
+--- !u!212 &2106921179069176927
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8349604577316073767}
+  m_GameObject: {fileID: 2106921179069176926}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4194029643823f54383b3924ab0c6d03, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 83f84b7d0d59b5e489ebf053ade6c6cc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,14 +85,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &8349604577316073760
+--- !u!95 &2106921179069176921
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8349604577316073767}
+  m_GameObject: {fileID: 2106921179069176926}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 6bf23351efc7ed648b91e7dcee8656dd, type: 2}
@@ -106,7 +106,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &8349604577350010778
+--- !u!1 &2106921179102079715
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -114,67 +114,67 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8349604577350010772}
-  - component: {fileID: 8349604577350010773}
-  - component: {fileID: 8349604577350010775}
-  - component: {fileID: 8349604577350010774}
-  - component: {fileID: 1033628319898411928}
+  - component: {fileID: 2106921179102079725}
+  - component: {fileID: 2106921179102079724}
+  - component: {fileID: 2106921179102079726}
+  - component: {fileID: 2106921179102079727}
+  - component: {fileID: 6970067828071730913}
   m_Layer: 6
-  m_Name: EmeraldItem
+  m_Name: MithrilItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8349604577350010772
+--- !u!4 &2106921179102079725
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8349604577350010778}
+  m_GameObject: {fileID: 2106921179102079715}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.96, y: 0.7633507, z: 0.18365288}
+  m_LocalPosition: {x: 15.03, y: 0.7633507, z: 0.18365288}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8349604577316073761}
+  - {fileID: 2106921179069176920}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!135 &8349604577350010773
+--- !u!135 &2106921179102079724
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8349604577350010778}
+  m_GameObject: {fileID: 2106921179102079715}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.3775046
   m_Center: {x: 0.008259535, y: 0.14526606, z: 0}
---- !u!114 &8349604577350010775
+--- !u!114 &2106921179102079726
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8349604577350010778}
+  m_GameObject: {fileID: 2106921179102079715}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7cd4034e7b8471942ad1415ac7931c37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _se: {fileID: 5035634537288977933, guid: b6e7b542124faef42a6b114323e03fe2, type: 3}
---- !u!54 &8349604577350010774
+--- !u!54 &2106921179102079727
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8349604577350010778}
+  m_GameObject: {fileID: 2106921179102079715}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -184,13 +184,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &1033628319898411928
+--- !u!65 &6970067828071730913
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8349604577350010778}
+  m_GameObject: {fileID: 2106921179102079715}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

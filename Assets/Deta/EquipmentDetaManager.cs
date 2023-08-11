@@ -20,6 +20,10 @@ public class EquipmentDetaManager : ScriptableObject
     public int _hp;
     /// <summary>y•Šízy‘•üz–hŒä—Íã‚ª‚è’l</summary>
     public int _defence;
+    /// <summary>y•Šízy‘•üzƒoƒt</summary>
+    public PlayerStates.Buff _Buff;
+    /// <summary>y•Šízy‘•üz“ÁêŒø‰Ê‚ª‚ ‚é</summary>
+    public bool _isSpecial;
 
 
     public enum WeponType

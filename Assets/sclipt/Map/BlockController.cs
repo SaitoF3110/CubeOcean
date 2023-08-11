@@ -9,17 +9,18 @@ public abstract class BlockController : MonoBehaviour
     
     float _fadeSpeed = 0;
     [SerializeField] Texture _defaultAlbedo;
-    FactingManager _facM;
+    FactingManager _facMBlock;
     float _thisFacting;
     float _playerFacting;
     int _factNumber;
+    bool _facMAdd;
     public abstract void WhenRotate();
 
     // Update is called once per frame
     private void Start()
     {
-        _facM = GameObject.FindObjectOfType<FactingManager>();
-        _facM.FactingTurn += PlayerFactingBlock;
+        _facMBlock = GameObject.FindObjectOfType<FactingManager>();
+        
 
     }
     void Update()
@@ -32,6 +33,20 @@ public abstract class BlockController : MonoBehaviour
         }
         //this.GetComponent<Renderer>().material.color = new Color(0,0,0, 1);
         //GetComponent<Renderer>().material.mainTexture = _defaultAlbedo;
+        GameObject obj = GameObject.FindWithTag("Player");
+        PlayerController playerscript = obj.GetComponent<PlayerController>();
+        if (playerscript._rotation)
+        {
+            if(!_facMAdd )
+            {
+                _facMBlock.FactingTurn += PlayerFactingBlock;
+            }
+        }
+        else
+        {
+            _facMBlock.FactingTurn -= PlayerFactingBlock;
+            _facMAdd = false;
+        }
     }
     private void FixedUpdate()
     {
@@ -51,6 +66,13 @@ public abstract class BlockController : MonoBehaviour
             }
             _fadeSpeed = 0;
         }
+    }
+    public void Break()
+    {
+
+        _facMBlock.FactingTurn -= PlayerFactingBlock;
+        Destroy(this.gameObject);
+
     }
     void PlayerFactingBlock(FactingManager.Facting _fact, bool _turn)
     {

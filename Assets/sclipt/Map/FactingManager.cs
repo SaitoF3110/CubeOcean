@@ -38,6 +38,8 @@ public class FactingManager : MonoBehaviour
             }
             playerscript._rotation = false;
         }
+
+
             
     }
     public Facting GetFacting(int _transRY)
