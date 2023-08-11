@@ -47,7 +47,7 @@ public class PlayerAnim : MonoBehaviour
         }
         //アニメーション
         GameObject obj = transform.parent.gameObject;
-        PlayerTest player = obj.GetComponent<PlayerTest>();
+        PlayerController player = obj.GetComponent<PlayerController>();
         anim.SetFloat("SpeedY", player._speedY);
     }
     private void OnTriggerExit(Collider other)

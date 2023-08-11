@@ -20,9 +20,9 @@ public class ItemContoller : MonoBehaviour
         GameObject _playerObj = GameObject.FindWithTag("Player");
         this.transform.rotation = _playerObj.transform.rotation;
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             _facAM.AfterFactingTurn -= AfterFactingItem;
             Instantiate(_se);

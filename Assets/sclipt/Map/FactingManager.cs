@@ -23,7 +23,7 @@ public class FactingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerTest playerscript = GetComponent<PlayerTest>();
+        PlayerController playerscript = GetComponent<PlayerController>();
         int _rotY = (int)this.transform.localEulerAngles.y;
         if (playerscript._rotation)
         {
