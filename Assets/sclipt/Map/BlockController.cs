@@ -107,7 +107,7 @@ public abstract class BlockController : MonoBehaviour
             if (_thisFacting == _playerFacting || _thisFacting == _playerFacting + _factNumber)
             {
                 BlockMaterialChange(ChangeType.FadeIn);//回転後に表示するブロックはフェードイン
-                Debug.Log(_playerFacting);
+                
             }
             else if(_thisFacting == _playerFacting - _factNumber)//手前のブロックは半透明に
             {

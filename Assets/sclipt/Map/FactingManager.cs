@@ -35,7 +35,6 @@ public class FactingManager : MonoBehaviour
             else
             {
                 _onFactingTurn(GetFacting(_rotY), false);
-             
             }
             playerscript._rotation = false;
         }
