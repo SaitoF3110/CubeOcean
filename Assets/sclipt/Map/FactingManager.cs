@@ -7,6 +7,7 @@ public class FactingManager : MonoBehaviour
 {
     event Action<Facting, bool> _onFactingTurn;
     /// <summary>
+    /// ‰ñ“]‚·‚é‘O‚Ìó‘Ô
     /// Facting‚ÍŒü‚«@bool‚Ítrue =ShiftTurn(ã‚©‚çŒ©‚ÄŒv‰ñ‚è)false‚Í‚»‚Ì‹t
     /// </summary>
     public Action<Facting, bool> FactingTurn
@@ -22,8 +23,9 @@ public class FactingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerTest playerscript = GetComponent<PlayerTest>();
         int _rotY = (int)this.transform.localEulerAngles.y;
-        if (Input.GetKeyDown(KeyCode.R))
+        if (playerscript._rotation)
         {
             //Debug.Log(GetFacting(_rotY));
             if (Input.GetKey(KeyCode.LeftShift))
@@ -35,10 +37,11 @@ public class FactingManager : MonoBehaviour
                 _onFactingTurn(GetFacting(_rotY), false);
              
             }
+            playerscript._rotation = false;
         }
             
     }
-    static public Facting GetFacting(int _transRY)
+    public Facting GetFacting(int _transRY)
     {
         
         if (_transRY == 0)

@@ -24,6 +24,7 @@ public class PlayerTest : MonoBehaviour
     bool _rotMode = false;
     public float _rotLimit = 1;
     public float _speedY;
+    public bool _rotation = false;
     /// <summary>
     /// âÒÇ¡ÇΩå„ÇÃå¸Ç´ 0:1:2:3 = 0:-90:Å}180:90
     /// </summary>
@@ -59,6 +60,7 @@ public class PlayerTest : MonoBehaviour
             if(!_rotMode)
             {
                 _audioRot.Play();
+                _rotation = true;
                 //this.transform.position = new Vector3((int)this.transform.position.x,this.transform.position.y, (int)this.transform.position.z);
             }
             if (Input.GetKey(KeyCode.LeftShift))
