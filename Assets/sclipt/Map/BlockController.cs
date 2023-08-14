@@ -159,9 +159,9 @@ public abstract class BlockController : MonoBehaviour
         }
         else if (_fade == ChangeType.TranslucentIn)
         {
-            if (this.GetComponent<Renderer>().material.color.a < 0.8)
+            if (this.GetComponent<Renderer>().material.color.a < 0.3)
             {
-                this.GetComponent<Renderer>().material.color += new Color(0, 0, 0, 0.8f);
+                this.GetComponent<Renderer>().material.color += new Color(0, 0, 0, 0.3f);
             }
         }
         else

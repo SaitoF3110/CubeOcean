@@ -7,6 +7,8 @@ public class EntityDetaManager : ScriptableObject
 {
     /// <summary>エンティティID</summary>
     public int _entityID;
+    /// <summary>エンティティ名</summary>
+    public string _name;
     /// <summary>敵である</summary>
     public bool _isEnemy;
     /// <summary>攻撃力</summary>

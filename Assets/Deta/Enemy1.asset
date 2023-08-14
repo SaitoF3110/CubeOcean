@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b1f8887e12d2f45b3c70807ec8c4c7, type: 3}
-  m_Name: Sw
+  m_Script: {fileID: 11500000, guid: e14ce2f9a5affe646919448ab50396b3, type: 3}
+  m_Name: Enemy1
   m_EditorClassIdentifier: 
-  _itemId: 0
-  _weponType: 1
-  _attack: 999999
-  _hp: 0
-  _defence: 0
-  _Buff: 0
-  _isSpecial: 0
+  _entityID: 45
+  _name: "\u30BE\u30F3\u30D3"
+  _isEnemy: 1
+  _attack: 1
+  _deffence: 0
+  _hp: 10
+  _isGround: 1

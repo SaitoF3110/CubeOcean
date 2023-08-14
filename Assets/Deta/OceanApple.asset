@@ -19,5 +19,4 @@ MonoBehaviour:
   _itemType: 0
   _asFoodBuff: 0
   _canEatBeforCook: 1
-  _weponType: 0
-  _attack: 0
+  _recipeID: 0
