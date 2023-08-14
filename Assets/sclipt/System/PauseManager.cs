@@ -6,9 +6,12 @@ public class PauseManager : MonoBehaviour
 {
     // Start is called before the first frame update
     bool _pauseFlug = false;
+    AudioSource _audioRot;
+    [SerializeField] AudioClip _openSE;
+    [SerializeField] AudioClip _closeSE;
     void Start()
     {
-
+        _audioRot = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -32,10 +35,12 @@ public class PauseManager : MonoBehaviour
             if (_pauseFlug)
             {
                 i?.Pause();
+                _audioRot.PlayOneShot(_openSE);
             }
             else
             {
                 i?.Resume();
+                _audioRot.PlayOneShot(_closeSE);
             }
         }
     }
