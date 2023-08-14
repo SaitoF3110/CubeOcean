@@ -20,7 +20,7 @@ public abstract class BlockController : MonoBehaviour
     private void Start()
     {
         _facMBlock = GameObject.FindObjectOfType<FactingManager>();
-        
+        _facMBlock.FactingTurn += PlayerFactingBlock;
 
     }
     void Update()
@@ -35,18 +35,6 @@ public abstract class BlockController : MonoBehaviour
         //GetComponent<Renderer>().material.mainTexture = _defaultAlbedo;
         GameObject obj = GameObject.FindWithTag("Player");
         PlayerController playerscript = obj.GetComponent<PlayerController>();
-        if (playerscript._rotation)
-        {
-            if(!_facMAdd )
-            {
-                _facMBlock.FactingTurn += PlayerFactingBlock;
-            }
-        }
-        else
-        {
-            _facMBlock.FactingTurn -= PlayerFactingBlock;
-            _facMAdd = false;
-        }
     }
     private void FixedUpdate()
     {
@@ -66,13 +54,6 @@ public abstract class BlockController : MonoBehaviour
             }
             _fadeSpeed = 0;
         }
-    }
-    public void Break()
-    {
-
-        _facMBlock.FactingTurn -= PlayerFactingBlock;
-        Destroy(this.gameObject);
-
     }
     void PlayerFactingBlock(FactingManager.Facting _fact, bool _turn)
     {
