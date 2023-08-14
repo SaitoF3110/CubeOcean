@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPause
 {
     // Start is called before the first frame update
     [SerializeField] float _jumpPawer = 3;
@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     public float _rotLimit = 1;
     public float _speedY;
     public bool _rotation = false;
+    bool _pause;
+    Vector3 _velocity;
     /// <summary>
     /// âÒÇ¡ÇΩå„ÇÃå¸Ç´ 0:1:2:3 = 0:-90:Å}180:90
     /// </summary>
@@ -42,25 +44,25 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !_pause)
         {
             Instantiate(_attack,this.transform.position,this.transform.rotation);
         }
         
         _speedY = _rb.velocity.y;
         GameController._player = this.transform.position;
-        if (Input.GetKeyDown(KeyCode.W) && !_rotMode)
+        if (Input.GetKeyDown(KeyCode.W) && !_rotMode && !Input.GetKey(KeyCode.LeftShift) && !_pause)
         {
             _audioRot.PlayOneShot(_jumpSE);
             _rb.velocity = new Vector3(_rb.velocity.x,0,_rb.velocity.z);
             _rb.AddForce(new Vector3(0,_jumpPawer * 100,0));
         }
-        if (Input.GetKeyDown(KeyCode.S) && !_rotMode)
+        if (Input.GetKeyDown(KeyCode.S) && !_rotMode && !Input.GetKey(KeyCode.LeftShift) && !_pause)
         {
             _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
             _rb.AddForce(new Vector3(0, -_jumpPawer * 50, 0));
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && !_pause)
         {
             if(!_rotMode)
             {
@@ -79,7 +81,7 @@ public class PlayerController : MonoBehaviour
             _rotMode = true;
             r += turn;
         }
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && !_pause)
         {
             _rb.velocity = new Vector3(0, 0, 0);
             _grav = Physics.gravity;
@@ -111,11 +113,11 @@ public class PlayerController : MonoBehaviour
     {
         float h = Input.GetAxis("Horizontal");
         Vector3 velocity = transform.localPosition;
-        if(h > 0)
+        if(h > 0 && !_pause)
         {
             _rb.AddForce(transform.right * _moveSpeed * _run);
         }
-        else if(h < 0)
+        else if(h < 0 && !_pause)
         {
             _rb.AddForce(transform.right * -_moveSpeed * _run);
         }
@@ -183,5 +185,17 @@ public class PlayerController : MonoBehaviour
         {
             _water = false;
         }
+    }
+    public void Pause()
+    {
+        _pause = true;
+        _velocity = _rb.velocity;
+        _rb.Sleep();
+    }
+    public void Resume()
+    {
+        _pause = false;
+        _rb.WakeUp();
+        _rb.velocity = _velocity;
     }
 }

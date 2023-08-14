@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnim : MonoBehaviour
+public class PlayerAnim : MonoBehaviour, IPause
 {
     // Start is called before the first frame update
     Animator anim = null;
@@ -11,6 +11,7 @@ public class PlayerAnim : MonoBehaviour
     AudioSource _audio;
     [SerializeField] AudioClip _landingSE;
     [SerializeField] AudioClip _AttackSE;
+    bool _pause = false;
     bool _landing = false;
     void Start()
     {
@@ -24,13 +25,13 @@ public class PlayerAnim : MonoBehaviour
     void Update()
     {
         anim.SetBool("NomalAttack", false);
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !_pause)
         {
             anim.SetBool("NomalAttack", true);
             _audio.PlayOneShot(_AttackSE);
         }
         float h = Input.GetAxis("Horizontal");
-        if(h != 0f)
+        if(h != 0f && !_pause)
         {
             m_sprite.flipX = (h < 0);
             anim.SetBool("run", true);
@@ -39,7 +40,7 @@ public class PlayerAnim : MonoBehaviour
         {
             anim.SetBool("run", false);
         }
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && !Input.GetKey(KeyCode.LeftShift))
         {
             //this.GetComponent<Animator>().enabled = false;  アニメーション停止のメモ
             anim.SetBool("jumpKey", true);
@@ -83,5 +84,15 @@ public class PlayerAnim : MonoBehaviour
 
 
 
+    }
+    public void Pause()
+    {
+        _pause = true;
+        anim.enabled = false;
+    }
+    public void Resume()
+    {
+        _pause = false;
+        anim.enabled = true;
     }
 }

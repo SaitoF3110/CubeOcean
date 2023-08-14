@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ProBuilder;
 
-public class ItemContoller : MonoBehaviour
+public class ItemContoller : MonoBehaviour, IPause
 {
     // Start is called before the first frame update
     [SerializeField] GameObject _se;
     AfterFactingManager _facAM;
+    Vector3 _velocity;
+    Rigidbody _rb;
     void Start()
     {
         _facAM = GameObject.FindObjectOfType<AfterFactingManager>();
         _facAM.AfterFactingTurn += AfterFactingItem;
+        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -67,5 +70,15 @@ public class ItemContoller : MonoBehaviour
             }
 
         }
+    }
+    public void Pause()
+    {
+        _velocity = _rb.velocity;
+        _rb.Sleep();
+    }
+    public void Resume()
+    {
+        _rb.WakeUp();
+        _rb.velocity = _velocity;
     }
 }
