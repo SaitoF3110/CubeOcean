@@ -56,8 +56,9 @@ public class PlayerAnim : MonoBehaviour, IPause
         if(other.gameObject.tag == "Ground")
         {
             anim.SetBool("ground", false);
-        }
             _landing = false;
+        }
+            
     }
     private void OnTriggerStay(Collider other)
     {
@@ -74,13 +75,13 @@ public class PlayerAnim : MonoBehaviour, IPause
         {
             anim.SetBool("ground", true);
             anim.SetBool("jumpKey", false);
-            
-            
+            if (!_landing)
+            {
+                _audio.PlayOneShot(_landingSE);
+            }
+
         }
-        if(!_landing)
-        {
-            _audio.PlayOneShot(_landingSE);
-        }
+
 
 
 

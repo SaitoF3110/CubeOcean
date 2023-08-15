@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _se: {fileID: 5035634537288977933, guid: b6e7b542124faef42a6b114323e03fe2, type: 3}
+  _itemData: {fileID: 11400000, guid: c6fcfbc0ac2e72745af2ff248f8e40b4, type: 2}
 --- !u!54 &7284251370318004038
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -45,21 +45,26 @@ public class FactingManager : MonoBehaviour
     public Facting GetFacting(int _transRY)
     {
         
-        if (_transRY == 0)
+        if (_transRY < 10 || _transRY > 350)
         {
             return Facting.MinusZ;
         }
-        else if (_transRY == 270)
+        else if (_transRY < 280 && _transRY > 260)
         {
             return Facting.PlusX;
         }
-        else if( _transRY == 180)
+        else if(_transRY < 190 && _transRY > 170)
         {
             return Facting.PlusZ;
         }
-        else
+        else if (_transRY < 100 && _transRY > 80)
         {
             return Facting.MinusX;
+        }
+        else
+        {
+            Debug.Log(_transRY);
+            return Facting.None;
         }
     }
     public enum Facting
@@ -72,5 +77,7 @@ public class FactingManager : MonoBehaviour
         MinusX,
         /// <summary>プレイヤーから見てz軸マイナス方向にカメラ</summary>
         MinusZ,
+
+        None,
     }
 }
