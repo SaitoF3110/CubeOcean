@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/ItemDeta")]
-public class ItemDetaManager : ScriptableObject
+public class ItemDataManager : ScriptableObject
 {
     //アイテムIDについて
     //0～999 Food
@@ -22,8 +22,8 @@ public class ItemDetaManager : ScriptableObject
     public int _itemId;
     /// <summary>アイテム名</summary>
     public string _itemName;
-    /// <summary>アイテム説明文</summary>
-    public string _itemDescription;
+    /// <summary>アイテム説明文(行)</summary>
+    public string[] _itemDescription;
     /// <summary>アイテム画像</summary>
     public Sprite _itemImage;
     /// <summary>アイテムタイプ</summary>

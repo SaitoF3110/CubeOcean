@@ -7,6 +7,7 @@ public class ItemContoller : MonoBehaviour, IPause
 {
     // Start is called before the first frame update
     [SerializeField] GameObject _se;
+    [SerializeField] ItemDataManager _itemData;
     AfterFactingManager _facAM;
     Vector3 _velocity;
     Rigidbody _rb;
@@ -27,6 +28,12 @@ public class ItemContoller : MonoBehaviour, IPause
     {
         if (other.gameObject.tag == "Player")
         {
+            GameObject _obj = (GameObject)other.gameObject;
+            PlayerItem _playerItem = _obj.GetComponent<PlayerItem>();
+            if(_playerItem != null && _itemData != null)
+            {
+                _playerItem._getItemList.Add(_itemData);
+            }
             _facAM.AfterFactingTurn -= AfterFactingItem;
             Instantiate(_se);
             Destroy(this.gameObject);

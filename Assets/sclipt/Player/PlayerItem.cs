@@ -6,11 +6,12 @@ using static UnityEditor.Progress;
 public class PlayerItem : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] ItemDetaManager manager;
-    Dictionary<ItemDetaManager, int> _itemDictionary = new Dictionary<ItemDetaManager, int>();
+    [SerializeField] ItemDataManager manager;
+    Dictionary<ItemDataManager, int> _itemDictionary = new Dictionary<ItemDataManager, int>();
+    public List<ItemDataManager> _getItemList = new List<ItemDataManager>();
     void Start()
     {
-        _itemDictionary[manager] = 1;
+        //_itemDictionary[manager] = 1;
         //_itemDictionary.Add(manager, 4);
         //_itemDictionary.Add(manager, 2);
     }
@@ -29,11 +30,26 @@ public class PlayerItem : MonoBehaviour
                 _itemDictionary[manager] += 1;
             }
         }
-        if (Input.GetKeyDown(KeyCode.L))
+
+        if(_getItemList.Count > 0)
         {
-            foreach (KeyValuePair<ItemDetaManager, int> item in _itemDictionary)
+            if (!_itemDictionary.ContainsKey(_getItemList[0]))
             {
-                Debug.Log("キーは" + item.Key + "です。  バリューは" + item.Value + "です。");
+                _itemDictionary.Add(_getItemList[0], 1);
+            }
+            else
+            {
+                _itemDictionary[_getItemList[0]] += 1;
+            }
+            _getItemList.Remove(_getItemList[0]);
+        }
+
+        //インベントリ確認
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            foreach (KeyValuePair<ItemDataManager, int> item in _itemDictionary)
+            {
+                Debug.Log( item.Key + "を" + item.Value + "個所持");
             }
         }
 

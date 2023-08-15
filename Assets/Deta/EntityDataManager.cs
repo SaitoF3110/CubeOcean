@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObject/EntityDeta")]
-public class EntityDetaManager : ScriptableObject
+public class EntityDataManager : ScriptableObject
 {
     /// <summary>エンティティID</summary>
     public int _entityID;
