@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IPause
     [SerializeField] float _moveSpeed = 1;
     [SerializeField] GameObject _transform;
     [SerializeField] GameObject _attack;
+    [SerializeField] GameObject _attackSword;
     AudioSource _audioRot;
     [SerializeField] AudioClip _jumpSE;
     FactingManager _facM;
@@ -47,6 +48,7 @@ public class PlayerController : MonoBehaviour, IPause
         if (Input.GetMouseButtonDown(0) && !_pause)
         {
             Instantiate(_attack,this.transform.position,this.transform.rotation);
+            Instantiate(_attackSword, this.transform.position, this.transform.rotation,this.transform);
         }
         
         _speedY = _rb.velocity.y;
