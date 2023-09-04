@@ -1,15 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.GraphicsBuffer;
 
 public class PanelController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField] GameObject _panelPX;//プレイヤーから見てプラスX方向のパネル
-    [SerializeField] GameObject _panelPZ;//プレイヤーから見てプラスZ方向のパネル
-    [SerializeField] GameObject _panelMX;//プレイヤーから見てマイナスX方向のパネル
-    [SerializeField] GameObject _panelMZ;//プレイヤーから見てマイナスX方向のパネル
+    //下の順番通り
+    [SerializeField] bool[] _bools = new bool[4];
+    [SerializeField] GameObject[] _objects = new GameObject[4];
+
+    [SerializeField] GameObject _panelPX;//プレイヤーから見てプラスX方向のパネル  0
+    [SerializeField] GameObject _panelPZ;//プレイヤーから見てプラスZ方向のパネル  1
+    [SerializeField] GameObject _panelMX;//プレイヤーから見てマイナスX方向のパネル  2
+    [SerializeField] GameObject _panelMZ;//プレイヤーから見てマイナスX方向のパネる  3
     FactingManager _facM;
     GameObject _inObj;
     bool _fadeIn = false;
@@ -22,23 +27,29 @@ public class PanelController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (_fadeIn)
+        int _index = Array.IndexOf(_objects, _inObj);
+        Debug.Log(_index);
+        if (_index != -1)
         {
-            Fix();
-            if(_alpha <= 1)
+            if (_fadeIn && _bools[_index])
             {
-                _alpha += 0.05f;
-                _inObj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _alpha);
+
+                if (_alpha <= 1)
+                {
+                    _alpha += 0.05f;
+                    _inObj.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _alpha);
+                }
+                else
+                {
+                    _alpha = 0;
+                    _outAlpha = 1;
+                    _fadeIn = false;
+                }
+
             }
-            else
-            {
-                _alpha = 0;
-                _outAlpha = 1;
-                _fadeIn = false;
-            }
-            
         }
-        
+        Fix();
+
     }
     void PlayerFactingPanel(FactingManager.Facting _fact, bool _turn)
     {
@@ -68,7 +79,7 @@ public class PanelController : MonoBehaviour
             Fix();
         }
         
-
+        NoWall();
         
     }
     // Update is called once per frame
@@ -85,21 +96,28 @@ public class PanelController : MonoBehaviour
         if (_outAlpha >= 0)
         {
             _outAlpha -= 0.05f;
-            if (_inObj != _panelPZ)
-                _panelPZ.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _outAlpha);
-            if (_inObj != _panelPX)
-                _panelPX.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _outAlpha);
-            if (_inObj != _panelMZ)
-                _panelMZ.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _outAlpha);
-            if (_inObj != _panelMX)
-                _panelMX.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _outAlpha);
+            for(int i = 0; i < 4; i++)
+            {
+                if (_inObj != _objects[i])
+                    _objects[i].GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, _outAlpha);
+            }
         }
-        if(_inObj ==null)
+        if(_inObj == null)
         {
-            _panelPZ.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-            _panelPX.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-            _panelMZ.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
-            _panelMX.GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+            for (int i = 0; i < 4; i++)
+            {
+                _objects[i].GetComponent<SpriteRenderer>().color = new Color(0, 0, 0, 0);
+            }
+        }
+    }
+    void NoWall()
+    {
+        for(int i = 0; i < 4; i++)
+        {
+            if (!_bools[i])
+            {
+
+            }
         }
     }
     GameObject FactGameObject(FactingManager.Facting _fact, bool _turn)
@@ -107,24 +125,24 @@ public class PanelController : MonoBehaviour
         if(!_turn)
         {
             if (_fact == FactingManager.Facting.MinusZ)
-                return _panelMX;
+                return _objects[2];
             else if (_fact == FactingManager.Facting.MinusX)
-                return _panelPZ;
+                return _objects[1];
             else if (_fact == FactingManager.Facting.PlusZ)
-                return _panelPX;
+                return _objects[0];
             else
-                return _panelMZ;
+                return _objects[3];
         }
         else
         {
             if (_fact == FactingManager.Facting.MinusZ)
-                return _panelPX;
+                return _objects[0];
             else if (_fact == FactingManager.Facting.MinusX)
-                return _panelMZ;
+                return _objects[3];
             else if (_fact == FactingManager.Facting.PlusZ)
-                return _panelMX;
+                return _objects[2];
             else
-                return _panelPZ;
+                return _objects[1];
         }
     }
 }

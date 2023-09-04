@@ -63,7 +63,6 @@ public class FactingManager : MonoBehaviour
         }
         else
         {
-            Debug.Log(_transRY);
             return Facting.None;
         }
     }
