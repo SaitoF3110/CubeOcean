@@ -8,6 +8,8 @@ TagManager:
   - Ground
   - Air
   - PlayerAttack
+  - HpBar
+  - Enemy
   layers:
   - Default
   - TransparentFX
