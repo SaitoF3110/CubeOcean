@@ -21,18 +21,19 @@ public class ItemContoller : MonoBehaviour, IPause
     // Update is called once per frame
     void Update()
     {
+        //常にプレイヤーの位置を取得
         GameObject _playerObj = GameObject.FindWithTag("Player");
         this.transform.rotation = _playerObj.transform.rotation;
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")//プレイヤーに触れたらデータを渡して自身を破棄
         {
             GameObject _obj = (GameObject)other.gameObject;
             PlayerItem _playerItem = _obj.GetComponent<PlayerItem>();
             if(_playerItem != null && _itemData != null)
             {
-                _playerItem._getItemList.Add(_itemData);
+                _playerItem._getItemList.Add(_itemData);//プレイヤーのゲットアイテムリストに追加
             }
             _facAM.AfterFactingTurn -= AfterFactingItem;
             Instantiate(_se);
@@ -45,6 +46,8 @@ public class ItemContoller : MonoBehaviour, IPause
         GameObject _playerObj = GameObject.FindWithTag("Player");
         float distancex = _playerObj.transform.position.x - this.transform.position.x;
         float distancez = _playerObj.transform.position.z - this.transform.position.z;
+
+        //描画処理　プレイヤーと同じ軸にいたら表示　近かったら半透明　遠かったら非表示
         if(afFacting == AfterFactingManager.AfFacting.MinusX || afFacting == AfterFactingManager.AfFacting.PlusX)
         {
             if(distancex * distancex > 1.5)

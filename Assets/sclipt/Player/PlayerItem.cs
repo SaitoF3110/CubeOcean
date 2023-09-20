@@ -33,11 +33,11 @@ public class PlayerItem : MonoBehaviour
 
         if(_getItemList.Count > 0)
         {
-            if (!_itemDictionary.ContainsKey(_getItemList[0]))
+            if (!_itemDictionary.ContainsKey(_getItemList[0]))//すでに同じアイテムがあったら数値だけ足す
             {
                 _itemDictionary.Add(_getItemList[0], 1);
             }
-            else
+            else//無かったら新しく追加
             {
                 _itemDictionary[_getItemList[0]] += 1;
             }

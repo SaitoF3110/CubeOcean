@@ -6,8 +6,10 @@ public class PauseUIManager : MonoBehaviour,IPause
 {
     // Start is called before the first frame update
     [SerializeField] bool _onPauseObj = true;
+    Vector3 _default;
     void Start()
     {
+        _default = transform.localScale;
         if (_onPauseObj)
             transform.localScale = new Vector3(0, 0, 0);
     }
@@ -21,7 +23,7 @@ public class PauseUIManager : MonoBehaviour,IPause
     public void Pause()
     {
         if (_onPauseObj)
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = _default;
         else
             transform.localScale = new Vector3(0, 0, 0);
     }
@@ -30,6 +32,6 @@ public class PauseUIManager : MonoBehaviour,IPause
         if (_onPauseObj)
             transform.localScale = new Vector3(0, 0, 0);
         else
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = _default;
     }
 }

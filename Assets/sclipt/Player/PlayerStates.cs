@@ -4,24 +4,42 @@ using UnityEngine;
 
 public class PlayerStates : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // 基本パラメータ
     float _helth = 100;
     float _maxHelth = 100;
     int _speed = 1;
-    int _attack = 10;
-    float _hpIncrease;
+    public int _attack = 10;
+    public int _diffence = 0;
+    //計算用
+    public float _hpIncrease;
     float _invincibleTime = 1;
+    bool _invincible = false;
     float _time;
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        _helth += _hpIncrease;
-        _hpIncrease = 0;
+        if(!_invincible && _hpIncrease < 0)//ダメージを受けた時、無敵オン＆無敵タイム計測開始
+        {
+            //無敵じゃない時しかダメージを受けない
+            _helth += _hpIncrease;
+            _invincible = true;
+            _time = 0.1f;
+        }
+        if( _time != 0 )//タイムが0以外の時、計測。
+        {
+            _time += Time.deltaTime;
+            if( _time > _invincibleTime + 0.1f )//無敵時間が過ぎたら無敵解除＆タイムリセット
+            {
+                _invincible = false;
+                _time = 0;
+            }
+
+        }
+        _hpIncrease = 0;//毎回ダメージ＆ヒール量リセット
 
         if (_helth > _maxHelth)
         {
@@ -43,7 +61,7 @@ public class PlayerStates : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            _hpIncrease = -10;
+
         }
     }
     public enum DeBuff

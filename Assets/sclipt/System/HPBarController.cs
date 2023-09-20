@@ -12,7 +12,7 @@ public class HPBarController : MonoBehaviour
     int x = 0;
     void Start()
     {
-        _defaultX = this.transform.position.x;
+        _defaultX = this.transform.localPosition.x;
     }
 
     // Update is called once per frame
@@ -20,8 +20,8 @@ public class HPBarController : MonoBehaviour
     {
         if (_plyerMaxHp != 0)
         {
-            _hpRatio = _plyerHp / _plyerMaxHp * 270;
-            this.transform.position = new Vector3(_hpRatio - 270 + _defaultX, this.transform.position.y, this.transform.position.z);
+            _hpRatio = _plyerHp / _plyerMaxHp * 100;
+            this.transform.localPosition = new Vector3(_hpRatio - 100 + _defaultX, this.transform.localPosition.y, this.transform.localPosition.z);
         }
     }
 }
