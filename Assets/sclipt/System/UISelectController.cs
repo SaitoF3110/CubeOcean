@@ -6,6 +6,8 @@ public class UISelectController : MonoBehaviour, IPause
 {
     // Start is called before the first frame update
     [SerializeField] Transform[] transforms;
+    [SerializeField] GameObject[] _objects;
+    Vector3[] _defaultScale = new Vector3[4];
     AudioSource _audio;
     int _amount;//‘I‘ğˆ‚Ì”
     int _nowSelect;
@@ -14,6 +16,10 @@ public class UISelectController : MonoBehaviour, IPause
     {
         _amount = transforms.Length - 1;
         _audio = GetComponent<AudioSource>();
+        for (int i = 0; i < _amount; i++)
+        {
+            _defaultScale[i] = _objects[i].transform.localScale;
+        }
     }
 
     // Update is called once per frame
@@ -21,7 +27,12 @@ public class UISelectController : MonoBehaviour, IPause
     {
         _nowSelect += GetAmount();
         CountFix();
+        ShowUI();
         this.transform.position = transforms[_nowSelect].position;
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            Debug.Log(_nowSelect);
+        }
     }
     void CountFix()
     {
@@ -56,5 +67,22 @@ public class UISelectController : MonoBehaviour, IPause
     public void Resume()
     {
         _active = false;
+    }
+    void ShowUI()
+    {
+        if (_active)
+        {
+            for (int i = 0; i < _amount; i++)
+            {
+                if (i == _nowSelect)
+                {
+                    _objects[i].transform.localScale = _defaultScale[i];
+                }
+                else
+                {
+                    _objects[i].transform.localScale = new Vector3(0, 0, 0);
+                }
+            }
+        }
     }
 }

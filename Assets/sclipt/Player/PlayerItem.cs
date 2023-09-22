@@ -20,7 +20,6 @@ public class PlayerItem : MonoBehaviour
     {
         if(_getItemList.Count > 0)
         {
-            Debug.Log(_getItemList[0]);
             if (!_itemDictionary.ContainsKey(_getItemList[0]))//無かったら新しく追加。同時にUI用のリストにも追加。
             {
                 _itemDictionary.Add(_getItemList[0], 1);
@@ -42,7 +41,7 @@ public class PlayerItem : MonoBehaviour
         {
             foreach (KeyValuePair<ItemDataManager, int> item in _itemDictionary)
             {
-                Debug.Log( item.Key + "を" + item.Value + "個所持");
+                //Debug.Log( item.Key + "を" + item.Value + "個所持");
             }
         }
 
