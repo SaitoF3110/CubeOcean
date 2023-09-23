@@ -12,14 +12,17 @@ public class UISelectController : MonoBehaviour, IPause
     int _amount;//‘I‘ğˆ‚Ì”
     int _nowSelect;
     bool _active;
-    void Start()
+    void Awake()
     {
         _amount = transforms.Length - 1;
-        _audio = GetComponent<AudioSource>();
         for (int i = 0; i < _amount; i++)
         {
             _defaultScale[i] = _objects[i].transform.localScale;
         }
+    }
+    void Start()
+    {
+        _audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

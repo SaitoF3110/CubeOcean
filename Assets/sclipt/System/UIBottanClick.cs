@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class UIBottanClick : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] AudioClip[] _audioClips;
+    AudioSource _audio;
     void Start()
     {
-        
+        _audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -21,5 +22,6 @@ public class UIBottanClick : MonoBehaviour
         GameObject _itemDetail = GameObject.Find("ItemDetail");
         UIItemDetail _detail = _itemDetail.GetComponent<UIItemDetail>();
         _detail._itemData = _item._itemData;
+        _audio.PlayOneShot(_audioClips[0]);
     }
 }
