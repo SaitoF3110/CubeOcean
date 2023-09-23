@@ -23,7 +23,7 @@ public class PauseManager : MonoBehaviour
         }
     }
 
-    void PauseResume()
+    public void PauseResume()
     {
         _pauseFlug = !_pauseFlug;
 

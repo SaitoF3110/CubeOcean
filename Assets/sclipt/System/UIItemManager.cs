@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class UIItemManager : MonoBehaviour, IPause
 {
     [SerializeField] GameObject _itemFrame;
-    public List<ItemDataManager> _itemData = new List<ItemDataManager>();
+    public List<ItemDataManager> _itemData = new List<ItemDataManager>();//プレイヤーの持つアイテムの種類リスト
     void Start()
     {
         
