@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerStates : MonoBehaviour
 {
+    [SerializeField] AudioClip _damage;
     // 基本パラメータ
     float _helth = 100;
     float _maxHelth = 100;
@@ -15,9 +16,11 @@ public class PlayerStates : MonoBehaviour
     float _invincibleTime = 1;
     bool _invincible = false;
     float _time;
+
+    AudioSource _audio;
     void Start()
     {
-        
+        _audio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -28,6 +31,7 @@ public class PlayerStates : MonoBehaviour
             _helth += _hpIncrease;
             _invincible = true;
             _time = 0.1f;
+            _audio.PlayOneShot(_damage);
         }
         if( _time != 0 )//タイムが0以外の時、計測。
         {

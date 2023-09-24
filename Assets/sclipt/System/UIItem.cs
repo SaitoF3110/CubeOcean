@@ -75,7 +75,6 @@ public class UIItem : MonoBehaviour
             _audio.PlayOneShot(_craftSE);
             //UI‰æ–Ê‚ğÄ•`‰æ
             NumberBox();
-            GameObject _itemUI = GameObject.Find("Game");
         }
     }
 }

@@ -10,6 +10,7 @@ TagManager:
   - PlayerAttack
   - HpBar
   - Enemy
+  - Explosion
   layers:
   - Default
   - TransparentFX

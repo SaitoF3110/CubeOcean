@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour, IPause
         if (Input.GetMouseButtonDown(0) && !_pause)
         {
             Instantiate(_attack,this.transform.position,this.transform.rotation);
-            Instantiate(_attackSword, this.transform.position, this.transform.rotation,this.transform);
+            //Instantiate(_attackSword, this.transform.position, this.transform.rotation,this.transform);
         }
         
         _speedY = _rb.velocity.y;

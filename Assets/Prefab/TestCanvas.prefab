@@ -4869,6 +4869,7 @@ MonoBehaviour:
   _recipeFrame: {fileID: 8654369112757791641, guid: 06af43e2040312a48966db2ccab9f42b, type: 3}
   _recipeData:
   - {fileID: 11400000, guid: 93626cb47b6bf41498655380aae27fd1, type: 2}
+  - {fileID: 11400000, guid: a1b1fc7552e039b41a01c84494332f1d, type: 2}
   _playerRecipeData: []
 --- !u!1 &8815975360131622634
 GameObject:
