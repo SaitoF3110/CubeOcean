@@ -24,14 +24,20 @@ public class PlayerAnim : MonoBehaviour, IPause
     // Update is called once per frame
     void Update()
     {
+        //アニメーション
+        GameObject obj = transform.parent.gameObject;
+        PlayerController player = obj.GetComponent<PlayerController>();
+        anim.SetFloat("SpeedY", player._speedY);
+
+
         anim.SetBool("NomalAttack", false);
-        if (Input.GetMouseButtonDown(0) && !_pause)
+        if (Input.GetMouseButtonDown(0) && !_pause && !player._dead)
         {
             anim.SetBool("NomalAttack", true);
             _audio.PlayOneShot(_AttackSE);
         }
         float h = Input.GetAxis("Horizontal");
-        if(h != 0f && !_pause)
+        if(h != 0f && !_pause && !player._dead)
         {
             m_sprite.flipX = (h < 0);
             anim.SetBool("run", true);
@@ -46,10 +52,11 @@ public class PlayerAnim : MonoBehaviour, IPause
             anim.SetBool("jumpKey", true);
             anim.SetFloat("SpeedY", 0);
         }
-        //アニメーション
-        GameObject obj = transform.parent.gameObject;
-        PlayerController player = obj.GetComponent<PlayerController>();
-        anim.SetFloat("SpeedY", player._speedY);
+
+        if (player._dead)
+        {
+            anim.Play("PlayerDeadAnim");
+        }
     }
     private void OnTriggerExit(Collider other)
     {

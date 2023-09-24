@@ -33,6 +33,8 @@ public class PlayerController : MonoBehaviour, IPause
     /// ‰ñ‚Á‚½Œã‚ÌŒü‚« 0:1:2:3 = 0:-90:}180:90
     /// </summary>
     public int _afterFacting = 0;
+
+    public bool _dead = false;
     void Start()
     {
         _audioRot = GetComponent<AudioSource>();
@@ -45,7 +47,7 @@ public class PlayerController : MonoBehaviour, IPause
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !_pause)
+        if (Input.GetMouseButtonDown(0) && !_pause && !_dead)
         {
             Instantiate(_attack,this.transform.position,this.transform.rotation);
             //Instantiate(_attackSword, this.transform.position, this.transform.rotation,this.transform);
@@ -53,18 +55,18 @@ public class PlayerController : MonoBehaviour, IPause
         
         _speedY = _rb.velocity.y;
         GameController._player = this.transform.position;
-        if (Input.GetKeyDown(KeyCode.W) && !_rotMode && !Input.GetKey(KeyCode.LeftShift) && !_pause)
+        if (Input.GetKeyDown(KeyCode.W) && !_rotMode && !Input.GetKey(KeyCode.LeftShift) && !_pause && !_dead)
         {
             _audioRot.PlayOneShot(_jumpSE);
             _rb.velocity = new Vector3(_rb.velocity.x,0,_rb.velocity.z);
             _rb.AddForce(new Vector3(0,_jumpPawer * 100,0));
         }
-        if (Input.GetKeyDown(KeyCode.S) && !_rotMode && !Input.GetKey(KeyCode.LeftShift) && !_pause)
+        if (Input.GetKeyDown(KeyCode.S) && !_rotMode && !Input.GetKey(KeyCode.LeftShift) && !_pause && !_dead)
         {
             _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
             _rb.AddForce(new Vector3(0, -_jumpPawer * 50, 0));
         }
-        if (Input.GetKeyDown(KeyCode.R) && !_pause)
+        if (Input.GetKeyDown(KeyCode.R) && !_pause && !_dead)
         {
             if(!_rotMode)
             {
@@ -83,7 +85,7 @@ public class PlayerController : MonoBehaviour, IPause
             _rotMode = true;
             r += turn;
         }
-        if (Input.GetKey(KeyCode.LeftShift) && !_pause)
+        if (Input.GetKey(KeyCode.LeftShift) && !_pause && !_dead)
         {
             _rb.velocity = new Vector3(0, 0, 0);
             _grav = Physics.gravity;
@@ -101,25 +103,17 @@ public class PlayerController : MonoBehaviour, IPause
             }
             
         }
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            _run = 2;
-        }
-        else
-        {
-            _run = 1;
-        }
 
     }
     void FixedUpdate()
     {
         float h = Input.GetAxis("Horizontal");
         Vector3 velocity = transform.localPosition;
-        if(h > 0 && !_pause)
+        if(h > 0 && !_pause && !_dead)
         {
             _rb.AddForce(transform.right * _moveSpeed * _run);
         }
-        else if(h < 0 && !_pause)
+        else if(h < 0 && !_pause && !_dead)
         {
             _rb.AddForce(transform.right * -_moveSpeed * _run);
         }

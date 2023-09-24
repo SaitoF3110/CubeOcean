@@ -8,6 +8,7 @@ public class EffectController : MonoBehaviour
     [SerializeField] GameObject _effect;
     [SerializeField] float _effectTime;
     float _time;
+    int _controll;
     void Start()
     {
         
@@ -24,17 +25,15 @@ public class EffectController : MonoBehaviour
     private void FixedUpdate()
     {
         _time += Time.deltaTime;
-        if (_time < _effectTime)
+        _controll++;
+        if (_controll % 5 == 0 && _time < _effectTime)
         {
             Vector3 _trans = new Vector3(this.transform.position.x + Random.Range(-1.5f, 1.5f), this.transform.position.y + Random.Range(-1.5f, 1.5f), 0.0f);
             Instantiate(_effect, _trans, this.transform.rotation, this.gameObject.transform);
         }
-        else
+        if (_time > _effectTime + 2)
         {
-            if (_time > _effectTime + 2)
-            {
-                Destroy(this.gameObject);
-            }
+            Destroy(this.gameObject);
         }
     }
 }

@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStates : MonoBehaviour
 {
     [SerializeField] AudioClip _damage;
+    [SerializeField] AudioClip _death;
     // 基本パラメータ
     float _helth = 100;
     float _maxHelth = 100;
@@ -18,6 +20,8 @@ public class PlayerStates : MonoBehaviour
     float _time;
 
     AudioSource _audio;
+    bool _wasDead = false;
+    float _deadTime;
     void Start()
     {
         _audio = GetComponent<AudioSource>();
@@ -25,6 +29,21 @@ public class PlayerStates : MonoBehaviour
 
     void Update()
     {
+        if(_helth <= 0)
+        {
+            _deadTime += Time.deltaTime;
+            PlayerController player = this.GetComponent<PlayerController>();
+            player._dead = true;
+            if(!_wasDead)
+            {
+                _audio.PlayOneShot(_death);
+                _wasDead = true;
+            }
+            if(_deadTime > 3)
+            {
+                SceneManager.LoadScene("GameOver");
+            }
+        }
         if(!_invincible && _hpIncrease < 0)//ダメージを受けた時、無敵オン＆無敵タイム計測開始
         {
             //無敵じゃない時しかダメージを受けない

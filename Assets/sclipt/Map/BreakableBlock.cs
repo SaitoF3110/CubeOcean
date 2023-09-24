@@ -21,22 +21,13 @@ public class BreakableBlock : MonoBehaviour
         if(!_active)
         {
             this.GetComponent<Renderer>().material.color -= new Color(0, 0, 0, this.GetComponent<Renderer>().material.color.a);
-            _time += Time.deltaTime;
-            if(_time > _intervalSec)
-            {
-                _time = 0;
-                m_ObjectCollider.isTrigger = false;
-                //this.GetComponent<Renderer>().material.color += new Color(0, 0, 0, 1);
-                _active = true;
-                
-            }
         }
     }
     private void OnTriggerEnter(Collider other)
     {
         if(_active)
         {
-            if (other.gameObject.tag == "PlayerAttack")
+            if (other.gameObject.tag == "Explosion")
             {
                 m_ObjectCollider.isTrigger = true;
                 Instantiate(_se);

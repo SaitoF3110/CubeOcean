@@ -7,6 +7,8 @@ public class PlayerItem : MonoBehaviour
     // Start is called before the first frame update
     public Dictionary<ItemDataManager, int> _itemDictionary = new Dictionary<ItemDataManager, int>();
     public List<ItemDataManager> _getItemList = new List<ItemDataManager>();
+    [SerializeField] ItemDataManager _bomb;
+    [SerializeField] GameObject _bombPrefab;
     void Start()
     {
         //_itemDictionary[manager] = 1;
@@ -33,6 +35,7 @@ public class PlayerItem : MonoBehaviour
                 
             }
             _getItemList.Remove(_getItemList[0]);
+
         }
 
         //インベントリ確認
@@ -43,6 +46,18 @@ public class PlayerItem : MonoBehaviour
                 //Debug.Log( item.Key + "を" + item.Value + "個所持");
             }
         }
-
+        //爆弾召喚
+        if (_itemDictionary.ContainsKey(_bomb))
+        {
+            if (_itemDictionary[_bomb] > 0)
+            {
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    Vector3 _trans = new Vector3((int)this.transform.position.x, (int)this.transform.position.y, (int)this.transform.position.z);
+                    Instantiate(_bombPrefab, _trans, this.transform.rotation);
+                    _itemDictionary[_bomb] -= 1;
+                }
+            }
+        }
     }
 }

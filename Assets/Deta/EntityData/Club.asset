@@ -15,7 +15,7 @@ MonoBehaviour:
   _entityID: 0
   _name: "\u30AB\u30CB"
   _isEnemy: 1
-  _attack: 6
+  _attack: 9
   _deffence: 0
   _hp: 10
   _isGround: 1
