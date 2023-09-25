@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour, IPause
@@ -20,6 +21,9 @@ public class PlayerController : MonoBehaviour, IPause
     int turn = 3;
     float _run = 1;
     float r = 0;
+    float _loadTime;
+    bool _loaded = false;
+    public AudioMixer audioMixer;
     /// <summary>
     /// ÉvÉåÉCÉÑÅ[Ç™å¸Ç´ÇïœÇ¶ÇÈ
     /// </summary>
@@ -34,6 +38,9 @@ public class PlayerController : MonoBehaviour, IPause
     /// </summary>
     public int _afterFacting = 0;
 
+    public int _jumpTime = 1;
+    public float _coolTime = 1;
+
     public bool _dead = false;
     void Start()
     {
@@ -47,26 +54,30 @@ public class PlayerController : MonoBehaviour, IPause
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !_pause && !_dead)
+        _coolTime += Time.deltaTime;
+        if (Input.GetMouseButtonDown(0) && !_pause && !_dead && _coolTime > 1f)
         {
             Instantiate(_attack,this.transform.position,this.transform.rotation);
             //Instantiate(_attackSword, this.transform.position, this.transform.rotation,this.transform);
+            _coolTime = 0f;
         }
         
         _speedY = _rb.velocity.y;
         GameController._player = this.transform.position;
-        if (Input.GetKeyDown(KeyCode.W) && !_rotMode && !Input.GetKey(KeyCode.LeftShift) && !_pause && !_dead)
+        if (Input.GetKeyDown(KeyCode.W) && !_rotMode && !Input.GetKey(KeyCode.LeftShift) && !_pause && !_dead && _jumpTime > 0)
         {
             _audioRot.PlayOneShot(_jumpSE);
             _rb.velocity = new Vector3(_rb.velocity.x,0,_rb.velocity.z);
             _rb.AddForce(new Vector3(0,_jumpPawer * 100,0));
+            _jumpTime = 0;
         }
         if (Input.GetKeyDown(KeyCode.S) && !_rotMode && !Input.GetKey(KeyCode.LeftShift) && !_pause && !_dead)
         {
             _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
             _rb.AddForce(new Vector3(0, -_jumpPawer * 50, 0));
         }
-        if (Input.GetKeyDown(KeyCode.R) && !_pause && !_dead)
+
+        if (Input.GetKeyDown(KeyCode.R) && !_pause && !_dead || !_loaded)
         {
             if(!_rotMode)
             {
@@ -84,6 +95,7 @@ public class PlayerController : MonoBehaviour, IPause
             }
             _rotMode = true;
             r += turn;
+            _loaded = true;
         }
         if (Input.GetKey(KeyCode.LeftShift) && !_pause && !_dead)
         {
@@ -103,7 +115,7 @@ public class PlayerController : MonoBehaviour, IPause
             }
             
         }
-
+        
     }
     void FixedUpdate()
     {
@@ -128,6 +140,16 @@ public class PlayerController : MonoBehaviour, IPause
                 _rotMode = false;
             }
             transform.rotation = Quaternion.Euler(0, r, 0);
+        }
+        if(_loadTime < 50 && _loadTime >= 0)
+        {
+            _loadTime++;
+            audioMixer.SetFloat("SE_Volume", -80);
+        }
+        else if(_loadTime >= 50)
+        {
+            audioMixer.SetFloat("SE_Volume", 0);
+            _loadTime = -100;
         }
     }
     void AllowFacting(FactingManager.Facting _fact,bool _turn)

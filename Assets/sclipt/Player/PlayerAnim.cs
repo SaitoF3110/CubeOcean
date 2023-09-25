@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerAnim : MonoBehaviour, IPause
 {
@@ -31,7 +32,7 @@ public class PlayerAnim : MonoBehaviour, IPause
 
 
         anim.SetBool("NomalAttack", false);
-        if (Input.GetMouseButtonDown(0) && !_pause && !player._dead)
+        if (Input.GetMouseButtonDown(0) && !_pause && !player._dead && player._coolTime > 1)
         {
             anim.SetBool("NomalAttack", true);
             _audio.PlayOneShot(_AttackSE);
@@ -85,6 +86,9 @@ public class PlayerAnim : MonoBehaviour, IPause
             if (!_landing)
             {
                 _audio.PlayOneShot(_landingSE);
+                GameObject obj = transform.parent.gameObject;
+                PlayerController player = obj.GetComponent<PlayerController>();
+                player._jumpTime = 1;
             }
 
         }

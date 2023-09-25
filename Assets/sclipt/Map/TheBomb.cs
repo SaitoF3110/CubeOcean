@@ -24,7 +24,7 @@ public class TheBomb : MonoBehaviour
     {
         if (other.gameObject.tag == "PlayerAttack" && !_finish)
         {
-            Instantiate(bomb, this.transform.position, this.transform.rotation);
+            Instantiate(bomb, this.transform);
             _finish = true;
         }
     }

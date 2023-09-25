@@ -28,8 +28,8 @@ public class EffectController : MonoBehaviour
         _controll++;
         if (_controll % 5 == 0 && _time < _effectTime)
         {
-            Vector3 _trans = new Vector3(this.transform.position.x + Random.Range(-1.5f, 1.5f), this.transform.position.y + Random.Range(-1.5f, 1.5f), 0.0f);
-            Instantiate(_effect, _trans, this.transform.rotation, this.gameObject.transform);
+            Vector3 _trans = new Vector3(this.transform.position.x + Random.Range(-1.5f, 1.5f), this.transform.position.y + Random.Range(-1.5f, 1.5f), this.transform.position.z);
+            GameObject _bomb = Instantiate(_effect, _trans, this.transform.rotation, this.gameObject.transform) as GameObject;
         }
         if (_time > _effectTime + 2)
         {
